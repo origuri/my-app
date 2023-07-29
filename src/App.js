@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { useEffect, useState } from 'react'; // { }가 있다는 건 defalut export가 아니라는 것.
+import { useEffect, useMemo, useState } from 'react'; // { }가 있다는 건 defalut export가 아니라는 것.
 import Sub from './Sub';
 import { cleanup } from '@testing-library/react';
 
@@ -16,55 +16,46 @@ import { cleanup } from '@testing-library/react';
  *      - 라이브러리를 사용하는 방법(부트스트랩, compent-style 등)
  * */
 
+// useMemo => 메모라이제이션(기억)
+
 function App() {
-  const [data, setData] = useState(0);
-  const [search, setSearch] = useState(0);
+  const [list, setList] = useState([1, 2, 3, 4]);
+  const [str, setStr] = useState('합계');
 
-  const download = () => {
-    // 다운로드 받은 데이터가 5라는 가정
-    let downloadData = 5;
-    setData(downloadData);
+  const getAddResult = () => {
+    let sum = 0;
+    list.forEach((l) => (sum += l));
+    console.log('sum-> ', sum);
+    return sum;
   };
+  // list의 상태가 변할 때만 getAddResult를 실행하겠다. 라고 기억해 놓는 것
+  const addResult = useMemo(() => getAddResult(), [list]);
 
-  /*
-   * 실행시점 :
-   * 1. App() 함수가 최초 실행 될 때(최초로 그림이 그려질 때)
-   * 2. 상태 변수가 변경 될 때(dependecyList에 등록이 되어있어야 함. )
-   *
-   * useEffect의 두번째 파라미터가 디펜던시 리스트인데 [] 공백으로 두면
-   * 어떤 상태 변수에도 의존하지 않아서 최초 app이 실행될 때에만 실행이 됨.
-   *
-   * 사용 용도 :
-   * 게시판 리스트가 있다고 칠 때 처음 실행하자마자 통신으로
-   * 게시판 리스트를 싹 받아와서 뿌릴 수 있음.
-   *
-   * 특정 게시판을 찾는 검색 함수(search)가 있을 때 그림을 다시 그려야 함.
-   * 그러므로 두번째 파라미터에는 [search]가 있어야지 검색이 되지 빈 배열 []이 있으면 검색안됨.
-   * */
-  useEffect(() => {
-    console.log('useEffect 실행됨.');
-    download();
-  }, [search]);
-
-  const aa = () => {
-    // input의 값이 바뀌어야 실행 됨.
-    // 1 검색 후 2 검색 하면 상태가 변해서 실행이 되지만 1 검색 후 1 검색하면 상태가 안변해서 실행 안됨.
-    const sea = document.querySelector('#search').value;
-    setSearch(sea);
+  const word = () => {
+    const changeWord = document.querySelector('#a').value;
+    setStr(changeWord);
+    console.log('문자 바뀜');
   };
 
   return (
     <div>
-      <input type="text" id={'search'}></input>
-      <button onClick={aa}>검색</button>
-      <h1>데이터 : {data}</h1>
+      <input type="text" id={'a'}></input>
       <button
         onClick={() => {
-          setData(data + 1);
+          setList([...list, 10]);
         }}
       >
-        더하기
+        리스트값 추가
       </button>
+      <button onClick={word}>문자변경</button>
+      <div>
+        {list.map((l) => (
+          <h1>{l}</h1>
+        ))}
+      </div>
+      <div>
+        {str} : {addResult}
+      </div>
     </div>
   );
 }
