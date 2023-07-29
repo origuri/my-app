@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+//깊은 복사 배열 연산자 concat, filter, map, slice, 스프레드(전개) 연산자.
+
+console.log("1=================== 스프레드 연산자")
+const a = [1,2,3];
+// 깊은 복사 중 가장 쉬은 방법이 스프레드 연산자.
+// const b = a;를 하면 b라는 공간에 a의 주소를 넣는 거고 스프레드는 b의 주소값에 1,2,3을 넣는 거임.
+const b = [...a];
+b.push(4);
+console.log(`a의 값은 -> ${a}`); // 1, 2, 3
+console.log(`b의 값은 -> ${b}`); // 1, 2, 3, 4 깊은 복사를 해서 따로따로 객체가 형성된 것
+const c = [0,...a, 4];
+console.log(`c의 값은 -> ${c}`); // 0, 1, 2, 3, 4 깊은 복사를 해서 따로따로 객체가 형성된 것
+
+console.log("2=================== concat 추가하기")
+const a2 = [1,2,3];
+const b2 = a2.concat(4);
+console.log(`a2의 값은 -> ${a2}`); // 1, 2, 3
+console.log(`b2의 값은 -> ${b2}`); // 1, 2, 3, 4 깊은 복사를 해서 따로따로 객체가 형성된 것
+
+console.log("3=================== filter 걸러내기") // 삭제할 때 많이 사용함.
+const a3 = [1,2,3];
+const b3 = a3.filter((n)=>{ // n에 차례대로 1,2,3이 대입 됨.
+  return n != 1; // boolean값이고 true값 만 리턴 함.
+});
+console.log(`a3의 값은 -> ${a3}`); // 1, 2, 3
+console.log(`b3의 값은 -> ${b3}`); // 2, 3  깊은 복사를 해서 따로따로 객체가 형성된 것
+
+console.log("4=================== slice 잘라내기")
+const a4 = [1,2,3];
+const b4 = a4.slice(0,2);
+console.log(b4); // [1, 2]
+const c4 = [a4.slice(0,2)];
+console.log(c4) //[[1,2]] 이차원 배열
+// 2차원 배열을 풀어주기 위해 스프레드 연산자를 사용할 수 있음.
+const d4 = [...a4.slice(0,2), 4, ...a4.slice(2,3)];
+console.log(d4) // 1, 2, 4, 3
+
+console.log("5=================== map 반복하기")
+const a5 = [1,2,3];
+/*for문을 jsx 문법에서는 사용할 수 없다. */
+for(let i = 0; i<a5.length; i++){
+  console.log(a[i]);
+}
+a5.forEach((n)=>{console.log(n)}); // forEach도 반복하긴 하지만 리턴이 없는 void 타입이다.
+const c5 = a5.map(n => n); // const c5 = [...a5]와 같은 의미 스프레드 연산자
+console.log(c5); // 1,2,3
+const d5 = a5.map(n => n+10); // map 연산자는 값을 가공할 수 있다는 큰 장점이 있다. 11,12,13
+console.log(d5); // 11,12,13
+
+console.log("6=================== 수정하기")
+// 스프레드를 사용해서 오브젝트를 복사하고 수정할 수 있음.
+const data = {name:"이구리"}
+const a6 = {id:1,name:"구리"};
+const b6 = {...a6, ...data};
+console.log(b6);
+
+/*
+* 회원 유저 정보를 수정해서 put 요청을 하는 상황
+* */
+const users = [
+  {id : 1, name :"임오리", phone : "123"},
+  {id : 2, name :"이모리",phone : "456"},
+  {id : 3, name :"구리", phone : "789"},
+];
+
+// id가 2인 username은 이모리 -> 임오링으로 변경
+const updateUserDto = {
+  id:2, name:"임오링"
+};
+/*
+*  user 하나 하나를 id값과 비교해서 일치하면 스프레드 연산으로 수정,
+*  아니라면 그냥 그대로 출력되게 함.
+* */
+const updateUser = users.map(user => user.id === updateUserDto.id ? {...user, ...updateUserDto} : user);
+console.log(updateUser);
+
+</script>
+</body>
+</html>
