@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { useEffect, useMemo, useState } from 'react'; // { }가 있다는 건 defalut export가 아니라는 것.
+import { createRef, useEffect, useMemo, useRef, useState } from 'react'; // { }가 있다는 건 defalut export가 아니라는 것.
 import Sub from './Sub';
 import { cleanup } from '@testing-library/react';
 
@@ -16,45 +16,39 @@ import { cleanup } from '@testing-library/react';
  *      - 라이브러리를 사용하는 방법(부트스트랩, compent-style 등)
  * */
 
-// useMemo => 메모라이제이션(기억)
+// useRef(디자인)
+// dom을 변경할 때 사용한다.
 
 function App() {
-  const [list, setList] = useState([1, 2, 3, 4]);
-  const [str, setStr] = useState('합계');
+  /*
+   * useRef는 current라는 key값을 가지고 있다.
+   * html 태그 안에 ref라는 속성으로 myRef를 주고
+   * current.style로 css 변경이 가능하다.
+   * */
+  const myRef = useRef(null);
 
-  const getAddResult = () => {
-    let sum = 0;
-    list.forEach((l) => (sum += l));
-    console.log('sum-> ', sum);
-    return sum;
-  };
-  // list의 상태가 변할 때만 getAddResult를 실행하겠다. 라고 기억해 놓는 것
-  const addResult = useMemo(() => getAddResult(), [list]);
+  const [list, setList] = useState([
+    { id: 1, name: '홍일' },
+    { id: 2, name: '홍이' },
+  ]);
 
-  const word = () => {
-    const changeWord = document.querySelector('#a').value;
-    setStr(changeWord);
-    console.log('문자 바뀜');
-  };
+  const myRefs = Array.from({ length: list.length }).map(() => createRef());
 
   return (
     <div>
-      <input type="text" id={'a'}></input>
       <button
         onClick={() => {
-          setList([...list, 10]);
+          myRefs[0].current.style.backgroundColor = 'red';
+          myRefs[1].current.style.backgroundColor = 'blue';
         }}
       >
-        리스트값 추가
+        색바꾸기
       </button>
-      <button onClick={word}>문자변경</button>
+      <div ref={myRef}>박스</div>
       <div>
-        {list.map((l) => (
-          <h1>{l}</h1>
+        {list.map((l, index) => (
+          <h1 ref={myRefs[index]}>{l.name}</h1>
         ))}
-      </div>
-      <div>
-        {str} : {addResult}
       </div>
     </div>
   );
