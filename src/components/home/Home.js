@@ -1,4 +1,10 @@
 import React from 'react';
+import styled from 'styled-components';
+
+let StyledDeleteButton = styled.button`
+  // 여기서의 props는 그냥 변수명일 뿐.
+  color: ${(props) => (props.user.username === '오리' ? 'blue' : 'red')};
+`;
 
 // function 방식
 const Home = (props) => {
@@ -10,12 +16,15 @@ const Home = (props) => {
    * 데이터 말고 데이터를 조작할 때 필요한 상태 함수도
    * 부모에서 받아야지 조작 가능
    * */
-  const { boards, setBoards } = props;
+  const { boards, setBoards, user } = props;
 
+  console.log('user 넘어옴? => ', user);
   return (
     <div>
-      <h1>홈페이지입니다.</h1>
-      <button onClick={() => setBoards([])}>전체삭제</button>
+      {/* user를 보냄.*/}
+      <StyledDeleteButton user={user} onClick={() => setBoards([])}>
+        전체삭제
+      </StyledDeleteButton>
       {boards.map((board) => (
         <h3>
           제목 : {board.title} 내용 : {board.content}

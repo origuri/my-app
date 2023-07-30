@@ -15,6 +15,7 @@ import Home from '../components/home/Home';
 
 const HomePage = () => {
   const [boards, setBoards] = useState([]);
+  const [user, setUser] = useState({});
 
   // 빈 배열이므로 최초 실행때만 실행됨.
   useEffect(() => {
@@ -32,6 +33,7 @@ const HomePage = () => {
     ];
 
     setBoards([...data]);
+    setUser({ id: 1, username: '오리' });
   }, []);
 
   return (
@@ -42,7 +44,7 @@ const HomePage = () => {
         그리고 다운이 완료되면 페이지가 다시 리렌더링 되면서 다운로드 데이터가 들어감.
         그래서 prop으로 넘기는 데이터는 상태 데이터를 넣어야 함.
       */}
-      <Home boards={boards} setBoards={setBoards} />
+      <Home boards={boards} setBoards={setBoards} user={user} />
       <Footer />
     </div>
   );
