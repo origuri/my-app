@@ -5,6 +5,7 @@ import Sub from './Sub';
 import { cleanup } from '@testing-library/react';
 import styled from 'styled-components';
 import LoginPage from './pages/LoginPage';
+import HomePage from './pages/HomePage';
 
 /*
  * 1. return 시에 하나의 dom만 리턴할 수 있다.
@@ -35,7 +36,7 @@ const Title2 = styled.h1`
 function App() {
   return (
     <div>
-      <LoginPage />
+      <HomePage />
     </div>
   );
 }
