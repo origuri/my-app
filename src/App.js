@@ -3,6 +3,8 @@ import './App.css';
 import { createRef, useEffect, useMemo, useRef, useState } from 'react'; // { }가 있다는 건 defalut export가 아니라는 것.
 import Sub from './Sub';
 import { cleanup } from '@testing-library/react';
+import styled from 'styled-components';
+import LoginPage from './pages/LoginPage';
 
 /*
  * 1. return 시에 하나의 dom만 리턴할 수 있다.
@@ -16,40 +18,24 @@ import { cleanup } from '@testing-library/react';
  *      - 라이브러리를 사용하는 방법(부트스트랩, compent-style 등)
  * */
 
-// useRef(디자인)
-// dom을 변경할 때 사용한다.
+/*
+ *  styled-components
+ *  js 문법을 사용해서 동적으로 css를 추가할 수 있음.
+ *  css는 app 함수 바깥에 선언해야 재실행 되지 않음.
+ *  install 후에 작동이 안된다면 인텔리제이 껐다 키면 됨.
+ *  최대의 장점은 css와 js를 한 컴포넌트로 묶어 사용함으로써 유지보수의 장점이 있다.
+ * */
+
+const Title2 = styled.h1`
+  font-size: 1.5em;
+  text-align: center;
+  color: #bf4f74;
+`;
 
 function App() {
-  /*
-   * useRef는 current라는 key값을 가지고 있다.
-   * html 태그 안에 ref라는 속성으로 myRef를 주고
-   * current.style로 css 변경이 가능하다.
-   * */
-  const myRef = useRef(null);
-
-  const [list, setList] = useState([
-    { id: 1, name: '홍일' },
-    { id: 2, name: '홍이' },
-  ]);
-
-  const myRefs = Array.from({ length: list.length }).map(() => createRef());
-
   return (
     <div>
-      <button
-        onClick={() => {
-          myRefs[0].current.style.backgroundColor = 'red';
-          myRefs[1].current.style.backgroundColor = 'blue';
-        }}
-      >
-        색바꾸기
-      </button>
-      <div ref={myRef}>박스</div>
-      <div>
-        {list.map((l, index) => (
-          <h1 ref={myRefs[index]}>{l.name}</h1>
-        ))}
-      </div>
+      <LoginPage />
     </div>
   );
 }
