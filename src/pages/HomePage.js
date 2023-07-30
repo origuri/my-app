@@ -36,18 +36,15 @@ const HomePage = () => {
     setUser({ id: 1, username: '오리' });
   }, []);
 
-  return (
-    <div>
-      <Header />
-      {/*boards 속성을 home 컴포넌트로 보낼 수 있는데 이를 prop이라고 한다.
+  return <Home boards={boards} setBoards={setBoards} user={user} />;
+
+  {
+    /*boards 속성을 home 컴포넌트로 보낼 수 있는데 이를 prop이라고 한다.
         useEffect로 다운로드를 시작하면 처음에는 빈데이터가 들어감.
         그리고 다운이 완료되면 페이지가 다시 리렌더링 되면서 다운로드 데이터가 들어감.
         그래서 prop으로 넘기는 데이터는 상태 데이터를 넣어야 함.
-      */}
-      <Home boards={boards} setBoards={setBoards} user={user} />
-      <Footer />
-    </div>
-  );
+      */
+  }
 };
 
 export default HomePage;

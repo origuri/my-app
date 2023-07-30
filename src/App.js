@@ -6,6 +6,9 @@ import { cleanup } from '@testing-library/react';
 import styled from 'styled-components';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import { Route, Routes } from 'react-router-dom';
 
 /*
  * 1. return 시에 하나의 dom만 리턴할 수 있다.
@@ -27,16 +30,21 @@ import HomePage from './pages/HomePage';
  *  최대의 장점은 css와 js를 한 컴포넌트로 묶어 사용함으로써 유지보수의 장점이 있다.
  * */
 
-const Title2 = styled.h1`
-  font-size: 1.5em;
-  text-align: center;
-  color: #bf4f74;
-`;
-
+/*
+ * path는 url을 의미
+ * exact = true는 정확한 주소만 찾겠다는 의미
+ * false일 경우 / 만 치면 home과 loginpage 둘다 찾음
+ * 이게 사실 페이지 이동처럼 보이지만 완성되어 있는 페이지를 교체할 뿐.
+ * */
 function App() {
   return (
     <div>
-      <HomePage />
+      <Header />
+      <Routes>
+        <Route path={'/'} exact={true} element={<HomePage />} />
+        <Route path={'/login/:id'} exact={true} element={<LoginPage />} />
+      </Routes>
+      <Footer />
     </div>
   );
 }

@@ -1,9 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Button } from 'react-bootstrap';
 
 let StyledDeleteButton = styled.button`
   // 여기서의 props는 그냥 변수명일 뿐.
   color: ${(props) => (props.user.username === '오리' ? 'blue' : 'red')};
+`;
+// 스타일 상속 받을 수 있음.
+let StyledAddButton = styled(StyledDeleteButton)`
+  background-color: aqua;
 `;
 
 // function 방식
@@ -22,6 +27,8 @@ const Home = (props) => {
   return (
     <div>
       {/* user를 보냄.*/}
+      <Button variant="primary">Primary</Button>{' '}
+      <StyledAddButton user={user}>더하기 버튼</StyledAddButton>
       <StyledDeleteButton user={user} onClick={() => setBoards([])}>
         전체삭제
       </StyledDeleteButton>

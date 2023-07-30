@@ -6,18 +6,14 @@
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
-B
-src/.prettierrc.js,b\f\bf105383c3fb9aafb367e2bf81af978004cb13e1
 :
 
 src/Sub.js,8\7\871f94f22f11468f56e734829aaf3623a5eba45c
 =
 src/test.html,6\8\68fdc6af60a9a222a5cb5b77c79d0e9cc8ee0797
-<
-src/index.js,f\9\f900edc44cb929c2267a16100a32851f6d5b477d
-A
-public/index.html,f\4\f43ecdf8d666ee908aacce037b4cd72159e4741b
-<
-package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
-A
-package-lock.json,f\a\fa288d1472d29beccb489a676f68739ad365fc47
+?
+src/App.test.js,9\2\923703ced91ac38943d37930d9d27a7ebe8f01ad
+;
+src/App.css,a\a\aa7165aefcf8ee3d73539e99ab007daf1aa18d8d
+B
+src/.prettierrc.js,b\f\bf105383c3fb9aafb367e2bf81af978004cb13e1
