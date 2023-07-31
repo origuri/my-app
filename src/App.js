@@ -1,14 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
-import { createRef, useEffect, useMemo, useRef, useState } from 'react'; // { }가 있다는 건 defalut export가 아니라는 것.
-import Sub from './Sub';
-import { cleanup } from '@testing-library/react';
-import styled from 'styled-components';
-import LoginPage from './pages/LoginPage';
-import HomePage from './pages/HomePage';
-import Header from './components/Header';
-import Footer from './components/Footer';
 import { Route, Routes } from 'react-router-dom';
+import ListPage from './pages/ListPage';
+import WritePage from './pages/WritePage';
+import Header from './components/Header';
+import Navigation from './components/Navigation';
 
 /*
  * 1. return 시에 하나의 dom만 리턴할 수 있다.
@@ -39,12 +35,9 @@ import { Route, Routes } from 'react-router-dom';
 function App() {
   return (
     <div>
-      <Header />
       <Routes>
-        <Route path={'/'} exact={true} element={<HomePage />} />
-        <Route path={'/login/:id'} exact={true} element={<LoginPage />} />
+        <Route path={'/'} exact={true} element={<ListPage />} />
       </Routes>
-      <Footer />
     </div>
   );
 }
