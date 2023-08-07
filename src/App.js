@@ -5,6 +5,9 @@ import ListPage from './pages/ListPage';
 import WritePage from './pages/WritePage';
 import Header from './components/Header';
 import Navigation from './components/Navigation';
+import React, { useState } from 'react';
+import Top from './components/Top';
+import Bottom from './components/Bottom';
 
 /*
  * 1. return 시에 하나의 dom만 리턴할 수 있다.
@@ -34,10 +37,13 @@ import Navigation from './components/Navigation';
  * */
 function App() {
   return (
-    <div>
-      <Routes>
+    <div className={'container'}>
+      {/* <Routes>
         <Route path={'/'} exact={true} element={<ListPage />} />
-      </Routes>
+      </Routes>*/}
+      <h1>최상단화면</h1>
+      <Top />
+      <Bottom />
     </div>
   );
 }

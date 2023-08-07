@@ -5,14 +5,21 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import reducer from './store';
+import { Provider } from 'react-redux';
+import { legacy_createStore } from 'redux';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const store = legacy_createStore(reducer);
 root.render(
   //<React.StrictMode>
   // <BrowserRouter> 이걸로 app을 감싸야 함.
   <BrowserRouter>
-    <App />,
+    <Provider store={store}>
+      <App />
+    </Provider>
   </BrowserRouter>,
+
   // </React.StrictMode>,
 );
 
